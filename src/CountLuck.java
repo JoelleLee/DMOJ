@@ -71,7 +71,6 @@ public class CountLuck {
             for(int j=0; j<row; j++){
                 input = stdin.readLine().split("");
                 for(int k=0; k<col; k++){
-                    //.=1     X=-1      prev=-1   *=2
                     if(input[k].equals("X")){
                         map[j][k] = -1;
                     }
