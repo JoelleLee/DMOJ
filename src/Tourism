@@ -1,0 +1,47 @@
+import java.io.*;
+
+public class Tourism {
+    public static int maxScore(int[] attractions, int minDays, int dayLimit, int day, int index, int score){
+        if(day>minDays){
+            return 0;
+        }
+
+        if(index>=attractions.length-1){
+            return score;
+        }
+
+        int maxScoreDay=0;
+        int maxScore=0;
+        for(int i=1; index+i<attractions.length && i<=dayLimit; i++){
+
+            if(attractions[index+i]>maxScoreDay){
+                maxScoreDay=attractions[index+i];
+            }
+
+            int resultScore = maxScore(attractions, minDays, dayLimit, day+1, index+i, score+maxScoreDay);
+
+            if(resultScore>maxScore){
+                maxScore=resultScore;
+            }
+        }
+
+        return maxScore;
+    }
+    public static void main(String[] args) throws IOException{
+        DataInputStream stdin = new DataInputStream(System.in);
+        String[] input = stdin.readLine().split(" ");
+        int tourPlaces = Integer.parseInt(input[0]);
+        int max = Integer.parseInt(input[1]);
+
+        input= stdin.readLine().split(" ");
+        int[] attractions = new int[tourPlaces];
+
+        for(int i=0; i<tourPlaces; i++){
+            attractions[i] = Integer.parseInt(input[i]);
+        }
+
+        System.out.println(maxScore(attractions, (tourPlaces + (tourPlaces%max))/max, max, 0, -1, 0));
+
+    }
+}
+

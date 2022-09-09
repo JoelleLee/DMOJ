@@ -1,0 +1,34 @@
+import java.io.*;
+
+public class VoronoiVillages {
+    public static void main(String[] args) throws IOException{
+        DataInputStream stdin = new DataInputStream(System.in);
+
+        int numVill = Integer.parseInt(stdin.readLine());
+        int[] villages = new int[numVill];
+
+        for(int i=0; i<numVill; i++){
+            int posVill = Integer.parseInt(stdin.readLine());
+            int p = i;
+
+            while(p>=1 && villages[p-1]<posVill){
+                villages[p] = villages[p-1];
+                p--;
+            }
+
+            villages[p] = posVill;
+        }
+
+        double minVill = -1;
+        for(int i=1; i<numVill-1; i++){
+            double villageSize= (villages[i-1]-villages[i+1])/2.0;
+
+            if(minVill==-1 || minVill>villageSize){
+                minVill = villageSize;
+            }
+        }
+
+        System.out.println(minVill);
+
+    }
+}
